@@ -19,29 +19,30 @@ export function CravingHistoryList({ events, onDelete }: Props) {
   const sorted = [...events].sort((a, b) => b.timestamp.localeCompare(a.timestamp));
 
   if (sorted.length === 0) {
-    return <p className="text-gray-400">아직 기록이 없어요</p>;
+    return (
+      <p className="text-label-sm border-primary/5 shadow-soft rounded-xl border bg-white p-4 text-on-surface-variant">
+        아직 기록이 없어요
+      </p>
+    );
   }
 
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className="border-primary/5 shadow-soft flex flex-col divide-y divide-surface-container-high rounded-xl border bg-white">
       {sorted.map((event) => (
-        <li
-          key={event.id}
-          className="flex items-center justify-between rounded-lg bg-gray-100 px-4 py-3 dark:bg-gray-800"
-        >
+        <li key={event.id} className="flex items-center justify-between px-4 py-3">
           <div>
-            <div className="text-gray-800 dark:text-gray-200">{formatTimestamp(event.timestamp)}</div>
-            <div className={`text-sm ${event.completed ? 'text-green-600' : 'text-gray-500'}`}>
+            <div className="text-body-md text-on-surface">{formatTimestamp(event.timestamp)}</div>
+            <div className={`text-label-sm ${event.completed ? 'text-primary' : 'text-on-surface-variant'}`}>
               {event.completed ? `참았어요 · ${Math.floor(event.moneySaved).toLocaleString()}원 절약` : '중도 포기'}
             </div>
           </div>
           <button
             type="button"
             onClick={() => onDelete(event.id)}
-            className="text-gray-400 hover:text-red-500"
+            className="material-symbols-outlined text-outline-variant hover:text-error transition-colors"
             aria-label="기록 삭제"
           >
-            삭제
+            delete
           </button>
         </li>
       ))}

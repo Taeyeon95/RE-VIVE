@@ -1,24 +1,21 @@
 interface Props {
   daysSinceQuit: number;
-  totalCompletedCount: number;
-  totalSaved: number;
   achievedGoalCount: number;
 }
 
-export function StatsSummary({ daysSinceQuit, totalCompletedCount, totalSaved, achievedGoalCount }: Props) {
+export function StatsSummary({ daysSinceQuit, achievedGoalCount }: Props) {
   const items = [
-    { label: '금연 유지 일수', value: daysSinceQuit },
-    { label: '총 참은 횟수', value: totalCompletedCount },
-    { label: '총 절약 금액(원)', value: totalSaved.toLocaleString() },
-    { label: '달성한 목표 물건 수', value: achievedGoalCount },
+    { icon: 'calendar_month', label: '금연 유지 일수', value: `${daysSinceQuit}일` },
+    { icon: 'military_tech', label: '달성한 목표 물건', value: `${achievedGoalCount}개` },
   ];
 
   return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-2 gap-gutter">
       {items.map((item) => (
-        <div key={item.label} className="rounded-xl bg-gray-100 p-4 dark:bg-gray-800">
-          <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{item.value}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">{item.label}</div>
+        <div key={item.label} className="shadow-soft border-primary/5 flex flex-col gap-1 rounded-xl border bg-white p-4">
+          <span className="material-symbols-outlined text-primary">{item.icon}</span>
+          <span className="text-headline-md text-primary font-bold">{item.value}</span>
+          <span className="text-label-sm text-on-surface-variant">{item.label}</span>
         </div>
       ))}
     </div>

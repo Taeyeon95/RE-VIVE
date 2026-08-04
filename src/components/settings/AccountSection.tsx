@@ -1,3 +1,5 @@
+import { primaryButtonClass, secondaryButtonClass } from '../../styles/formStyles';
+
 interface Props {
   email: string | null;
   onOpenLogin: () => void;
@@ -9,14 +11,10 @@ export function AccountSection({ email, onOpenLogin, onOpenSignup, onLogOut }: P
   if (email) {
     return (
       <div className="flex flex-col gap-3">
-        <p className="text-gray-700 dark:text-gray-300">
-          <span className="font-medium">{email}</span> 계정으로 로그인 중이에요
+        <p className="text-body-md text-on-surface-variant">
+          <span className="text-on-surface font-semibold">{email}</span> 계정으로 로그인 중이에요
         </p>
-        <button
-          type="button"
-          onClick={onLogOut}
-          className="rounded-lg border border-gray-300 py-3 text-gray-700 dark:border-gray-600 dark:text-gray-300"
-        >
+        <button type="button" onClick={onLogOut} className={secondaryButtonClass}>
           로그아웃
         </button>
       </div>
@@ -25,22 +23,14 @@ export function AccountSection({ email, onOpenLogin, onOpenSignup, onLogOut }: P
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="text-gray-700 dark:text-gray-300">
+      <p className="text-body-md text-on-surface-variant">
         지금은 이 기기에만 기록이 저장돼요. 로그인하면 다른 기기에서도 이어서 볼 수 있어요.
       </p>
       <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={onOpenLogin}
-          className="flex-1 rounded-lg border border-gray-300 py-3 text-gray-700 dark:border-gray-600 dark:text-gray-300"
-        >
+        <button type="button" onClick={onOpenLogin} className={secondaryButtonClass}>
           로그인
         </button>
-        <button
-          type="button"
-          onClick={onOpenSignup}
-          className="flex-1 rounded-lg bg-green-600 py-3 font-semibold text-white"
-        >
+        <button type="button" onClick={onOpenSignup} className={primaryButtonClass}>
           회원가입
         </button>
       </div>

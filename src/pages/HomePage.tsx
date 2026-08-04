@@ -1,3 +1,4 @@
+import { DaysRing } from '../components/home/DaysRing';
 import { HomeCard } from '../components/home/HomeCard';
 import { CravingTriggerButton } from '../components/home/CravingTriggerButton';
 import { HomeStatsSummary } from '../components/home/HomeStatsSummary';
@@ -13,21 +14,53 @@ import type { CravingEvent, GoalItem, UserProfile } from '../types';
 interface Props {
   profile: UserProfile;
   activeGoals: GoalItem[];
+  achievedGoals: GoalItem[];
   events: CravingEvent[];
   logEvent: (event: Omit<CravingEvent, 'id'>) => CravingEvent;
   achieveGoal: (id: string) => void;
   onGoToSettings: () => void;
 }
 
-export function HomePage({ profile, activeGoals, events, logEvent, achieveGoal, onGoToSettings }: Props) {
-  const flow = useCravingFlow({ profile, activeGoals, events, logEvent, achieveGoal });
+export function HomePage({
+  profile,
+  activeGoals,
+  achievedGoals,
+  events,
+  logEvent,
+  achieveGoal,
+  onGoToSettings,
+}: Props) {
+  const quitStart = new Date(profile.quitDateTime).getTime();
+  const eventsBeforeRestart = events.filter((e) => new Date(e.timestamp).getTime() < quitStart);
+  const eventsSinceRestart = events.filter((e) => new Date(e.timestamp).getTime() >= quitStart);
+
+  const savedBeforeRestart = totalSaved(eventsBeforeRestart);
+  const savedSinceRestart = totalSaved(eventsSinceRestart);
+
+  // 이번 시도 중 구매로 소진된 금액만큼 남은 goal들이 나눠 쓰는 금액에서 제외
+  const purchasedThisAttempt = achievedGoals
+    .filter((g) => g.achievedAt && new Date(g.achievedAt).getTime() >= quitStart)
+    .reduce((sum, g) => sum + g.targetPrice, 0);
+  const availablePool = Math.max(0, savedSinceRestart - purchasedThisAttempt);
+
+  const flow = useCravingFlow({ profile, activeGoals, availablePool, logEvent });
   const exercise = getExerciseById(profile.selectedExerciseId);
-  const savedSoFar = totalSaved(events);
-  const goalProgressList = activeGoals.map((goal) => ({ goal, percent: progressPercent(goal, savedSoFar) }));
+
+  const goalProgressList = activeGoals.map((goal) => ({
+    goal,
+    percentCurrent: progressPercent(goal, availablePool),
+    percentBefore: progressPercent(goal, savedBeforeRestart),
+    savedCurrent: availablePool,
+    savedBefore: savedBeforeRestart,
+  }));
+
+  const handleBuyGoal = (goal: GoalItem) => {
+    achieveGoal(goal.id);
+  };
 
   if (flow.step !== 'idle') {
     return (
-      <div className="fixed inset-0 z-50 overflow-y-auto bg-white dark:bg-gray-900">
+      <div className="bg-surface fixed inset-0 z-50 overflow-y-auto">
         {flow.step === 'motivation' && (
           <MotivationScreen quitReason={profile.quitReason} onProceed={flow.proceedToExercise} onClose={flow.reset} />
         )}
@@ -49,13 +82,24 @@ export function HomePage({ profile, activeGoals, events, logEvent, achieveGoal, 
   }
 
   return (
-    <div className="flex flex-col gap-5 p-5 pb-24">
-      <HomeCard activeGoals={goalProgressList} onGoToSettings={onGoToSettings} />
+    <div className="px-container-margin flex flex-col gap-gutter pt-unit pb-28">
+      <section className="flex flex-col items-center gap-2 py-8 text-center">
+        <DaysRing days={daysSinceQuit(profile.quitDateTime)} />
+        <h2 className="text-headline-lg text-primary mt-2">
+          금연 {daysSinceQuit(profile.quitDateTime)}일째
+        </h2>
+        <p className="text-body-md text-on-surface-variant max-w-xs">
+          잘하고 있어요. 오늘 하루도 담배 없이 잘 버텨봐요!
+        </p>
+      </section>
+
+      <HomeCard activeGoals={goalProgressList} onGoToSettings={onGoToSettings} onBuyGoal={handleBuyGoal} />
+
       <CravingTriggerButton onTrigger={flow.start} />
+
       <HomeStatsSummary
-        daysSinceQuit={daysSinceQuit(profile.quitDateTime)}
-        totalCompletedCount={totalCompletedCount(events)}
-        totalSaved={savedSoFar}
+        totalCompletedCount={totalCompletedCount(eventsSinceRestart)}
+        totalSaved={savedSinceRestart}
       />
     </div>
   );

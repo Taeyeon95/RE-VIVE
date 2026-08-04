@@ -13,29 +13,40 @@ interface Props {
 }
 
 export function StatsPage({ profile, events, achievedGoals, onDeleteEvent }: Props) {
-  return (
-    <div className="flex flex-col gap-6 p-5 pb-24">
-      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">통계</h1>
+  const completedCount = totalCompletedCount(events);
+  const saved = totalSaved(events);
 
-      <StatsSummary
-        daysSinceQuit={daysSinceQuit(profile.quitDateTime)}
-        totalCompletedCount={totalCompletedCount(events)}
-        totalSaved={totalSaved(events)}
-        achievedGoalCount={achievedGoals.length}
-      />
+  return (
+    <div className="px-container-margin flex flex-col gap-gutter pt-unit pb-28">
+      <div className="bg-primary text-on-primary shadow-soft flex flex-col gap-2 rounded-xl p-6">
+        <h2 className="text-headline-lg-mobile">당신이 참아낸 {completedCount}번의 순간들</h2>
+        <p className="text-body-md opacity-90">
+          그 모든 유혹을 이겨낸 당신은 이미 승리자입니다. 오늘의 기록이 내일의 건강이 됩니다.
+        </p>
+      </div>
+
+      <div className="border-primary/5 shadow-soft flex flex-col gap-2 rounded-xl border bg-white p-6">
+        <div className="flex items-center justify-between">
+          <span className="text-label-sm text-on-surface-variant">총 절약 금액</span>
+          <span className="material-symbols-outlined text-secondary">payments</span>
+        </div>
+        <span className="text-headline-lg text-primary font-bold">{saved.toLocaleString()}원</span>
+      </div>
+
+      <StatsSummary daysSinceQuit={daysSinceQuit(profile.quitDateTime)} achievedGoalCount={achievedGoals.length} />
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">일별 절약 금액</h2>
+        <h2 className="text-label-lg text-primary">일별 절약 금액</h2>
         <SavingsChart data={dailySavingsSeries(events)} />
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">달성한 목표 물건</h2>
+        <h2 className="text-label-lg text-primary">달성한 목표 물건</h2>
         <GoalGallery achievedGoals={achievedGoals} />
       </section>
 
       <section className="flex flex-col gap-2">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">기록</h2>
+        <h2 className="text-label-lg text-primary">기록</h2>
         <CravingHistoryList events={events} onDelete={onDeleteEvent} />
       </section>
     </div>

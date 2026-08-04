@@ -1,0 +1,303 @@
+<!DOCTYPE html><html class="light" lang="ko"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Quit &amp; Win - Shake Off Cravings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#1a1c19",
+                    "surface-container": "#eeeee9",
+                    "on-tertiary-fixed-variant": "#444844",
+                    "on-primary-fixed-variant": "#23501e",
+                    "primary": "#154212",
+                    "on-surface-variant": "#42493e",
+                    "on-primary-fixed": "#002201",
+                    "outline": "#72796e",
+                    "surface-container-highest": "#e3e3de",
+                    "tertiary": "#363a37",
+                    "surface-bright": "#fafaf4",
+                    "surface-dim": "#dadad5",
+                    "outline-variant": "#c2c9bb",
+                    "secondary-container": "#fd8b00",
+                    "tertiary-container": "#4d514e",
+                    "tertiary-fixed": "#e0e3df",
+                    "surface-container-high": "#e8e8e3",
+                    "on-tertiary-container": "#c0c4bf",
+                    "surface-tint": "#3b6934",
+                    "inverse-primary": "#a1d494",
+                    "surface-variant": "#e3e3de",
+                    "inverse-on-surface": "#f1f1ec",
+                    "secondary-fixed": "#ffdcc3",
+                    "primary-fixed-dim": "#a1d494",
+                    "primary-fixed": "#bcf0ae",
+                    "on-secondary-fixed": "#2f1500",
+                    "tertiary-fixed-dim": "#c4c7c3",
+                    "error-container": "#ffdad6",
+                    "surface-container-low": "#f4f4ee",
+                    "on-tertiary-fixed": "#191c1a",
+                    "on-primary": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed-dim": "#ffb77d",
+                    "background": "#fafaf4",
+                    "on-secondary-fixed-variant": "#6e3900",
+                    "on-error": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-container": "#2d5a27",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-container": "#9dd090",
+                    "on-background": "#1a1c19",
+                    "inverse-surface": "#2f312e",
+                    "on-secondary": "#ffffff",
+                    "secondary": "#904d00",
+                    "on-secondary-container": "#603100",
+                    "surface": "#fafaf4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target-min": "48px",
+                    "gutter": "16px",
+                    "unit": "8px",
+                    "section-gap": "40px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "body-md": ["Hanken Grotesk"],
+                    "label-lg": ["Hanken Grotesk"],
+                    "headline-md": ["Hanken Grotesk"],
+                    "headline-lg-mobile": ["Hanken Grotesk"],
+                    "label-sm": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Hanken Grotesk"],
+                    "display-lg": ["Hanken Grotesk"]
+            },
+            "fontSize": {
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-lg": ["16px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "label-sm": ["13px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; background-color: #fafaf4; overflow-x: hidden; }
+        
+        /* Dynamic Shake Animation */
+        .shake-anim {
+            animation: shake-complex 0.6s cubic-bezier(.36,.07,.19,.97) both infinite;
+            transform: translate3d(0, 0, 0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+        }
+        @keyframes shake-complex {
+            0%, 100% { transform: translateX(0) rotate(0); }
+            15% { transform: translateX(-8px) rotate(-10deg); }
+            30% { transform: translateX(6px) rotate(8deg); }
+            45% { transform: translateX(-6px) rotate(-6deg); }
+            60% { transform: translateX(4px) rotate(4deg); }
+            75% { transform: translateX(-2px) rotate(-2deg); }
+        }
+
+        /* Ripple Effect */
+        .ripple-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(144, 77, 0, 0.1);
+            animation: ripple 2s infinite cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+        }
+        .ripple-bg:nth-child(2) { animation-delay: 0.6s; }
+        .ripple-bg:nth-child(3) { animation-delay: 1.2s; }
+        
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(2.2); opacity: 0; }
+        }
+
+        /* Progress Ring Animation */
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+
+        /* Pulse for Button */
+        .pulse-btn:active, .pulse-btn:hover {
+            animation: pulse-small 1.5s infinite ease-in-out;
+        }
+        @keyframes pulse-small {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21, 66, 18, 0.4); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 10px rgba(21, 66, 18, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(21, 66, 18, 0); }
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 12px rgba(21, 66, 18, 0.05);
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-on-surface">
+<!-- TopAppBar -->
+<header class="bg-surface docked full-width top-0 z-50">
+<div class="flex justify-between items-center px-container-margin h-touch-target-min w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img class="w-full h-full object-cover" data-alt="A professional studio headshot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQm2zrr7MJUR0wyjJFjoMAgTxb3Xb8OqwdLft5oy3spRGV4c11K1j3jAS6hW2JabmFUx-o5tOKN2vyPjCphb6lb6lTBs-Yg9WaEt9Ud4H7eer9E41YewM_U0a4oZASTx6vBCqwiCs-ZaU0mcYk-sev63RvUGfeUpn8vv3vHO6zvm_qdYt2W3nPizE5Wa8y2J0xE-DX-6Cah2xskmXziW9mepHz93FmBd5JNgywjWMz-pyA1h-mtwuGJ2tpMn7jJdTBR0SukKejNFUi">
+</div>
+<h1 class="font-display-lg font-extrabold text-primary text-headline-lg">Quit &amp; Win</h1>
+</div>
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full active:scale-95 duration-150 ease-in-out" data-icon="settings">settings</button>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 px-container-margin pt-unit pb-32 max-w-md mx-auto w-full">
+<!-- Exercise Header -->
+<div class="text-center mt-8 mb-section-gap">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-2">충동 털어내기</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">폰을 힘차게 흔들어 충동을 털어내세요!</p>
+</div>
+<!-- Central Shake Area -->
+<div class="relative flex items-center justify-center mb-section-gap">
+<!-- Ripple Effect Layers -->
+<div class="ripple-bg"></div>
+<div class="ripple-bg"></div>
+<div class="ripple-bg"></div>
+<!-- Progress Ring Background -->
+<svg class="w-64 h-64 relative z-10">
+<circle class="text-surface-container-highest" cx="128" cy="128" fill="transparent" r="110" stroke="currentColor" stroke-width="8"></circle>
+<circle class="progress-ring__circle text-secondary" cx="128" cy="128" fill="transparent" id="progress-circle" r="110" stroke="currentColor" stroke-linecap="round" stroke-width="12" style="stroke-dasharray: 691.15; stroke-dashoffset: 670.416;"></circle>
+</svg>
+<!-- Inner Circle Content -->
+<div class="absolute inset-0 flex flex-col items-center justify-center z-20">
+<div class="shake-anim bg-primary-container p-6 rounded-full text-on-primary-container mb-4 shadow-lg border-2 border-primary/20" id="phone-icon">
+<span class="material-symbols-outlined text-[64px]" style="font-variation-settings: 'FILL' 1;">vibration</span>
+</div>
+<div class="text-center">
+<span class="font-display-lg text-display-lg font-extrabold text-primary transition-all duration-300" id="counter" style="transform: scale(1);">1</span>
+<span class="font-headline-md text-headline-md text-outline-variant"> / 50</span>
+</div>
+</div>
+</div>
+<!-- Encouragement Card -->
+<div class="bg-surface-container-lowest rounded-xl p-6 card-shadow border border-primary/5 mb-8">
+<div class="flex items-start gap-4">
+<div class="bg-secondary-fixed p-2 rounded-lg">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">
+                    몸을 움직이면 도파민이 생성되어 흡연 욕구가 줄어듭니다. 조금만 더 힘내세요!
+                </p>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="flex flex-col gap-4">
+<button class="w-full h-14 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg shadow-md hover:bg-primary-container transition-all active:scale-95 flex items-center justify-center gap-2 pulse-btn" id="finish-btn">
+<span class="material-symbols-outlined">check_circle</span>
+                다 흔들었어요!
+            </button>
+<button class="w-full h-14 bg-surface-container-high text-on-surface-variant rounded-xl font-label-lg text-label-lg hover:bg-surface-container-highest transition-all active:scale-95">
+                포기할래요
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 bg-surface-container rounded-t-xl shadow-md flex justify-around items-center px-4 pb-4 pt-2">
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-sm text-label-sm">홈</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 translate-y-[-2px] transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">fitness_center</span>
+<span class="font-label-sm text-label-sm">운동</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">military_tech</span>
+<span class="font-label-sm text-label-sm">목표</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label-sm text-label-sm">기록</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">설정</span>
+</button>
+</nav>
+<script>
+        // Simulate Shaking Logic for UI demo
+        let count = 0;
+        const target = 50;
+        const counterEl = document.getElementById('counter');
+        const progressCircle = document.getElementById('progress-circle');
+        const phoneIcon = document.getElementById('phone-icon');
+        const finishBtn = document.getElementById('finish-btn');
+        const radius = 110;
+        const circumference = 2 * Math.PI * radius;
+
+        function updateProgress(value) {
+            const offset = circumference - (value / target) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+            counterEl.innerText = Math.floor(value);
+            
+            // Add a slight bounce scale effect to counter on update
+            counterEl.style.transform = 'scale(1.2)';
+            setTimeout(() => { counterEl.style.transform = 'scale(1)'; }, 100);
+            
+            if (value >= target) {
+                phoneIcon.classList.remove('shake-anim');
+                phoneIcon.classList.add('bg-secondary');
+                phoneIcon.classList.add('text-on-secondary');
+                phoneIcon.querySelector('span').innerText = 'celebration';
+                
+                // Stop ripples when done
+                document.querySelectorAll('.ripple-bg').forEach(el => el.style.display = 'none');
+            }
+        }
+
+        // Auto-simulation for presentation purposes
+        let simulateInterval = setInterval(() => {
+            if (count < target) {
+                // Incrementally update to show smooth bar fill
+                count += 0.5; 
+                updateProgress(count);
+            } else {
+                clearInterval(simulateInterval);
+            }
+        }, 80);
+
+        // Micro-interaction on finish button
+        finishBtn.addEventListener('click', () => {
+            if (count < target) {
+                // Just for the demo, jump to finish
+                count = target;
+                updateProgress(target);
+            } else {
+                alert('충동을 이겨내셨습니다! 도파민 점수가 +10 상승했습니다.');
+            }
+        });
+    </script>
+
+
+</body></html>

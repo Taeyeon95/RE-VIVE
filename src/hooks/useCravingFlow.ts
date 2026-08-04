@@ -1,7 +1,6 @@
 import { useCallback, useState } from 'react';
 import { pricePerCigarette } from '../utils/moneyCalc';
 import { progressPercent } from '../utils/goalProgress';
-import { totalSaved } from '../utils/statsCalc';
 import type { CravingEvent, GoalItem, UserProfile } from '../types';
 
 export type FlowStep = 'idle' | 'motivation' | 'exercise' | 'result';
@@ -15,12 +14,11 @@ export interface CravingFlowResult {
 interface UseCravingFlowArgs {
   profile: UserProfile;
   activeGoals: GoalItem[];
-  events: CravingEvent[];
+  availablePool: number;
   logEvent: (event: Omit<CravingEvent, 'id'>) => CravingEvent;
-  achieveGoal: (id: string) => void;
 }
 
-export function useCravingFlow({ profile, activeGoals, events, logEvent, achieveGoal }: UseCravingFlowArgs) {
+export function useCravingFlow({ profile, activeGoals, availablePool, logEvent }: UseCravingFlowArgs) {
   const [step, setStep] = useState<FlowStep>('idle');
   const [result, setResult] = useState<CravingFlowResult | null>(null);
 
@@ -35,22 +33,14 @@ export function useCravingFlow({ profile, activeGoals, events, logEvent, achieve
     const moneySaved = pricePerCigarette(profile);
     logEvent({ timestamp: new Date().toISOString(), completed: true, moneySaved });
 
-    const totalSavedAfter = totalSaved([
-      ...events,
-      { id: '', timestamp: new Date().toISOString(), completed: true, moneySaved },
-    ]);
-
-    const achievedGoalNames: string[] = [];
-    for (const goal of activeGoals) {
-      if (progressPercent(goal, totalSavedAfter) >= 100) {
-        achievedGoalNames.push(goal.name);
-        achieveGoal(goal.id);
-      }
-    }
+    const poolAfter = availablePool + moneySaved;
+    const achievedGoalNames = activeGoals
+      .filter((goal) => progressPercent(goal, availablePool) < 100 && progressPercent(goal, poolAfter) >= 100)
+      .map((goal) => goal.name);
 
     setResult({ completed: true, moneySaved, achievedGoalNames });
     setStep('result');
-  }, [profile, activeGoals, events, logEvent, achieveGoal]);
+  }, [profile, activeGoals, availablePool, logEvent]);
 
   const abandonExercise = useCallback(() => {
     logEvent({ timestamp: new Date().toISOString(), completed: false, moneySaved: 0 });

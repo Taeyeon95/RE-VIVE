@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed": "#002201",
+                        "primary": "#154212",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#23501e",
+                        "surface-container-high": "#e8e8e3",
+                        "secondary-fixed": "#ffdcc3",
+                        "on-surface-variant": "#42493e",
+                        "on-secondary-container": "#603100",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#191c1a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c19",
+                        "on-primary-container": "#9dd090",
+                        "primary-container": "#2d5a27",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed-variant": "#444844",
+                        "inverse-primary": "#a1d494",
+                        "on-secondary-fixed": "#2f1500",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#bcf0ae",
+                        "inverse-surface": "#2f312e",
+                        "surface-container-highest": "#e3e3de",
+                        "secondary-container": "#fd8b00",
+                        "error-container": "#ffdad6",
+                        "outline-variant": "#c2c9bb",
+                        "primary-fixed-dim": "#a1d494",
+                        "on-background": "#1a1c19",
+                        "surface": "#fafaf4",
+                        "surface-variant": "#e3e3de",
+                        "tertiary-container": "#4d514e",
+                        "surface-dim": "#dadad5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f4f4ee",
+                        "tertiary-fixed-dim": "#c4c7c3",
+                        "surface-bright": "#fafaf4",
+                        "secondary-fixed-dim": "#ffb77d",
+                        "on-secondary-fixed-variant": "#6e3900",
+                        "inverse-on-surface": "#f1f1ec",
+                        "on-tertiary-container": "#c0c4bf",
+                        "error": "#ba1a1a",
+                        "tertiary": "#363a37",
+                        "tertiary-fixed": "#e0e3df",
+                        "surface-container": "#eeeee9",
+                        "secondary": "#904d00",
+                        "surface-tint": "#3b6934",
+                        "background": "#fafaf4",
+                        "outline": "#72796e"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "unit": "8px",
+                        "section-gap": "40px",
+                        "container-margin": "24px",
+                        "gutter": "16px",
+                        "touch-target-min": "48px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Hanken Grotesk"],
+                        "label-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-sm": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .widget-glow {
+            box-shadow: 0 4px 12px rgba(21, 66, 18, 0.05);
+        }
+        .glass-effect {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .mobile-frame {
+            aspect-ratio: 9 / 19.5;
+            max-height: 850px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-container-low font-body-md text-on-surface min-h-screen flex items-center justify-center p-4">
+<!-- Main Container -->
+<main class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+<!-- Case 1: Standard / Privacy Mode -->
+<section class="flex flex-col items-center">
+<h2 class="font-headline-md text-headline-md mb-6 text-on-surface-variant">평상시 (보호 모드)</h2>
+<div class="mobile-frame w-full max-w-[360px] bg-black rounded-[3rem] p-3 shadow-2xl relative border-[8px] border-tertiary overflow-hidden">
+<!-- Wallpaper Background -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A serene landscape with soft rolling hills during sunrise, featuring a palette of deep greens and hazy golds. The lighting is ethereal and soft, creating a calm atmosphere for a phone wallpaper. High-end modern photography style with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCMUZmEyeFA6YGrbRyZXzxPIb7SbN9FcxFDbxfj4NpjOQE2bp1ovtzvW52bsj8TkAeBaDVYVG9h7F5K-cc8X_gwUeHYBZ3U7EMfF4Ed9BPn_mh7_iG9zdlYrbjHDbL8CIfW0-XDuuxXea9sIZ9os6MbFThNJYOSeA2eJQ3IR6Bihsn3x6gaFGKBuhFmpuDoQNb-IJH3r_eae4zbhgDmhSzkgYjG8JYbdkHnGHQgtAQLzv3pVEVlwyULJerhO5aj4lH-J8ObO1EakvS"/>
+</div>
+<!-- Status Bar -->
+<div class="relative z-10 flex justify-between px-6 pt-4 text-white font-bold text-xs">
+<span>9:41</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[14px]">battery_full</span>
+</div>
+</div>
+<!-- 4x2 Widget: Privacy State -->
+<div class="relative z-10 mt-12 px-4">
+<div class="w-full h-[160px] glass-effect rounded-xl widget-glow p-6 flex flex-col justify-center items-center text-center">
+<span class="font-display-lg text-display-lg text-primary mb-1">09:41</span>
+<p class="font-label-lg text-label-lg text-on-surface-variant">오늘도 화이팅! 🌿</p>
+</div>
+</div>
+<!-- Fake App Grid -->
+<div class="relative z-10 mt-8 grid grid-cols-4 gap-4 px-4">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/50 rounded-full"></div>
+</div>
+</section>
+<!-- Case 2: Active / Tracking Mode -->
+<section class="flex flex-col items-center">
+<h2 class="font-headline-md text-headline-md mb-6 text-on-surface-variant">터치 시 (진행 상태)</h2>
+<div class="mobile-frame w-full max-w-[360px] bg-black rounded-[3rem] p-3 shadow-2xl relative border-[8px] border-tertiary overflow-hidden">
+<!-- Wallpaper Background -->
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover opacity-80" data-alt="A serene landscape with soft rolling hills during sunrise, featuring a palette of deep greens and hazy golds. The lighting is ethereal and soft, creating a calm atmosphere for a phone wallpaper. High-end modern photography style with a shallow depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqb0WeKXNxXdZwNRdWQEMOHbuwGRMbZEuarR3zyLp0g6naq5w9Se2u5BG42DXU2nSehNIaSfIm9B4wbUMVww1DvRehcLwRVNRW9J1o4vd5HGsyV1p7OqDmq2iK2Dr0QJBaJUBGlMiGjcUKygKLCtH5mzkzQC-HZF7uBCimzEYJzz29mRm9GeBGSmb9fgUEYczvotZ4WYYcwOnC9RAh8AdOh2wUsrnqXZWVfI8crXXJvV-cJq3HdQkgbTLMhUiqcbn5neBi86iQF53P"/>
+</div>
+<!-- Status Bar -->
+<div class="relative z-10 flex justify-between px-6 pt-4 text-white font-bold text-xs">
+<span>9:41</span>
+<div class="flex gap-1">
+<span class="material-symbols-outlined text-[14px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[14px]">wifi</span>
+<span class="material-symbols-outlined text-[14px]">battery_full</span>
+</div>
+</div>
+<!-- 4x2 Widget: Active State -->
+<div class="relative z-10 mt-12 px-4">
+<div class="w-full h-[160px] bg-white rounded-xl widget-glow p-4 flex gap-4 items-center">
+<!-- Goal Image Container -->
+<div class="relative w-28 h-28 rounded-lg overflow-hidden shrink-0 group">
+<img class="w-full h-full object-cover" data-alt="A luxury analog wristwatch with a leather strap resting on a wooden desk. Cinematic lighting focusing on the intricate details of the watch face. The aesthetic is sophisticated and aspirational, using warm tones and deep shadows to signify a high-value reward." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEz5LGe92HLQ4pycm6QwZke9g7snXW0EWm0mVIPZZI8UvpyKuvSLomStYqYtSvgem_zJhqxa-YB6B88L5Fm0MD0gUiCvJzYD7Fai4cbjYGi4EOazuM3uu1qOaa5LbeDyV2s-xwZ9E9FqojDw2s_Flpg5BIZ41oV3F22rnH0Mvxu_F7gSs5T2B_D_9Tg7kCcvHMNKGPyKUWMZBMbbysS9HCkKpjxTA6FRaWkatdXj-8VZXjTd3lqAMwis140Uam3LvN1RQe-_h1N0gg"/>
+<div class="absolute inset-0 bg-primary/40 flex items-center justify-center">
+<span class="text-white font-bold text-lg">67%</span>
+</div>
+</div>
+<!-- Info & Action -->
+<div class="flex flex-col justify-between h-full flex-grow">
+<div>
+<h3 class="font-label-lg text-label-lg text-on-surface">나를 위한 보상</h3>
+<div class="w-full bg-surface-container-high h-2 rounded-full mt-2 overflow-hidden">
+<div class="bg-secondary h-full" style="width: 67%;"></div>
+</div>
+<p class="text-[11px] text-on-surface-variant mt-1">목표까지 <span class="font-bold">12일</span> 남았어요!</p>
+</div>
+<!-- SOS Button -->
+<button class="bg-secondary-container text-on-secondary-container font-label-lg text-label-lg h-touch-target-min rounded-lg flex items-center justify-center gap-2 active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                                충동 신고
+                            </button>
+</div>
+</div>
+</div>
+<!-- Fake App Grid -->
+<div class="relative z-10 mt-8 grid grid-cols-4 gap-4 px-4">
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="w-12 h-12 bg-white/20 rounded-2xl backdrop-blur-md"></div>
+<div class="w-8 h-2 bg-white/30 rounded-full"></div>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/50 rounded-full"></div>
+</div>
+</section>
+</main>
+<!-- Interactive Micro-interaction Overlay (Floating Hint) -->
+<div class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-3 rounded-full shadow-lg flex items-center gap-3 animate-bounce">
+<span class="material-symbols-outlined">touch_app</span>
+<span class="font-label-lg">위젯을 터치하면 상세 정보를 확인합니다</span>
+</div>
+<script>
+        // Simple interactive demonstration
+        const widgets = document.querySelectorAll('.widget-glow');
+        widgets.forEach(widget => {
+            widget.addEventListener('click', () => {
+                widget.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    widget.style.transform = 'scale(1)';
+                }, 100);
+            });
+        });
+    </script>
+</body></html>

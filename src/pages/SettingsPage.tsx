@@ -37,11 +37,11 @@ export function SettingsPage({
   onResetAll,
 }: Props) {
   return (
-    <div className="flex flex-col gap-8 p-5 pb-24">
-      <h1 className="text-xl font-bold text-gray-900 dark:text-gray-100">설정</h1>
+    <div className="px-container-margin flex flex-col gap-section-gap pt-unit pb-28">
+      <h1 className="text-headline-lg-mobile text-primary">설정</h1>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">계정</h2>
+        <h2 className="text-label-lg text-primary">계정</h2>
         <AccountSection
           email={accountEmail}
           onOpenLogin={onOpenLogin}
@@ -51,12 +51,12 @@ export function SettingsPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">프로필</h2>
+        <h2 className="text-label-lg text-primary">프로필</h2>
         <ProfileSettingsForm profile={profile} onSave={onUpdateProfile} onRestartQuitDate={onRestartQuitDate} />
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">목표 물건</h2>
+        <h2 className="text-label-lg text-primary">목표 물건</h2>
         <GoalSettingsForm
           activeGoals={activeGoals}
           onUpdateGoal={onUpdateGoal}
@@ -66,7 +66,7 @@ export function SettingsPage({
       </section>
 
       <section className="flex flex-col gap-3">
-        <h2 className="font-semibold text-gray-800 dark:text-gray-200">접근성</h2>
+        <h2 className="text-label-lg text-primary">접근성</h2>
         <AccessibilitySettingsForm accessibility={profile.accessibility} onChange={onUpdateAccessibility} />
       </section>
 

@@ -1,3 +1,5 @@
+import { inputClass, labelClass } from '../../styles/formStyles';
+
 interface ProfileStepData {
   age: string;
   bodyConditions: string[];
@@ -24,30 +26,30 @@ export function ProfileStep({ data, onChange }: Props) {
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">기본 정보를 알려주세요</h2>
+      <h2 className="text-headline-lg-mobile text-primary">기본 정보를 알려주세요</h2>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-medium text-gray-800 dark:text-gray-200">나이</span>
+      <label className="flex flex-col gap-2">
+        <span className={labelClass}>나이</span>
         <input
           type="number"
           min={1}
           value={data.age}
           onChange={(e) => onChange({ age: e.target.value })}
-          className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+          className={inputClass}
           placeholder="예: 45"
         />
       </label>
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="font-medium text-gray-800 dark:text-gray-200">불편한 신체 부위 (해당 시 선택)</legend>
+        <legend className={labelClass}>불편한 신체 부위 (해당 시 선택)</legend>
         <div className="flex gap-4">
           {BODY_CONDITION_OPTIONS.map((condition) => (
-            <label key={condition} className="flex items-center gap-2 text-lg">
+            <label key={condition} className="text-body-lg flex items-center gap-2">
               <input
                 type="checkbox"
                 checked={data.bodyConditions.includes(condition)}
                 onChange={() => toggleCondition(condition)}
-                className="h-5 w-5"
+                className="text-primary h-5 w-5"
               />
               {condition}
             </label>
@@ -55,48 +57,48 @@ export function ProfileStep({ data, onChange }: Props) {
         </div>
       </fieldset>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-medium text-gray-800 dark:text-gray-200">금연 시작 일시</span>
+      <label className="flex flex-col gap-2">
+        <span className={labelClass}>금연 시작 일시</span>
         <input
           type="datetime-local"
           value={data.quitDateTime}
           onChange={(e) => onChange({ quitDateTime: e.target.value })}
-          className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+          className={inputClass}
         />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-medium text-gray-800 dark:text-gray-200">하루 평균 흡연량 (개비)</span>
+      <label className="flex flex-col gap-2">
+        <span className={labelClass}>하루 평균 흡연량 (개비)</span>
         <input
           type="number"
           min={1}
           value={data.cigarettesPerDay}
           onChange={(e) => onChange({ cigarettesPerDay: e.target.value })}
-          className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+          className={inputClass}
           placeholder="예: 10"
         />
       </label>
 
       <div className="grid grid-cols-2 gap-4">
-        <label className="flex flex-col gap-1">
-          <span className="font-medium text-gray-800 dark:text-gray-200">한 갑 가격 (원)</span>
+        <label className="flex flex-col gap-2">
+          <span className={labelClass}>한 갑 가격 (원)</span>
           <input
             type="number"
             min={1}
             value={data.pricePerPack}
             onChange={(e) => onChange({ pricePerPack: e.target.value })}
-            className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+            className={inputClass}
             placeholder="예: 4500"
           />
         </label>
-        <label className="flex flex-col gap-1">
-          <span className="font-medium text-gray-800 dark:text-gray-200">한 갑당 개비 수</span>
+        <label className="flex flex-col gap-2">
+          <span className={labelClass}>한 갑당 개비 수</span>
           <input
             type="number"
             min={1}
             value={data.cigarettesPerPack}
             onChange={(e) => onChange({ cigarettesPerPack: e.target.value })}
-            className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+            className={inputClass}
             placeholder="20"
           />
         </label>

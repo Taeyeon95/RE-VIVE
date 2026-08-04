@@ -3,6 +3,7 @@ import { ProfileStep, isProfileStepValid, type ProfileStepData } from './Profile
 import { ExerciseStep } from './ExerciseStep';
 import { ReasonStep } from './ReasonStep';
 import { GoalStep } from './GoalStep';
+import { primaryButtonClass, secondaryButtonClass } from '../../styles/formStyles';
 import type { GoalItem, UserProfile } from '../../types';
 
 interface Props {
@@ -83,13 +84,13 @@ export function OnboardingWizard({ onComplete }: Props) {
   const handleBack = () => setStepIndex((i) => Math.max(0, i - 1));
 
   return (
-    <div className="mx-auto flex min-h-svh max-w-md flex-col justify-between p-6">
+    <div className="bg-surface mx-auto flex min-h-svh max-w-md flex-col justify-between p-6">
       <div>
         <div className="mb-6 flex gap-2">
           {STEP_TITLES.map((title, i) => (
             <div
               key={title}
-              className={`h-2 flex-1 rounded-full ${i <= stepIndex ? 'bg-green-600' : 'bg-gray-200 dark:bg-gray-700'}`}
+              className={`h-2 flex-1 rounded-full ${i <= stepIndex ? 'bg-primary' : 'bg-surface-container-high'}`}
             />
           ))}
         </div>
@@ -116,11 +117,7 @@ export function OnboardingWizard({ onComplete }: Props) {
 
       <div className="mt-6 flex gap-3">
         {stepIndex > 0 && (
-          <button
-            type="button"
-            onClick={handleBack}
-            className="flex-1 rounded-lg border border-gray-300 py-3 text-lg font-medium text-gray-700 dark:border-gray-600 dark:text-gray-300"
-          >
+          <button type="button" onClick={handleBack} className={`${secondaryButtonClass} flex-1`}>
             이전
           </button>
         )}
@@ -128,7 +125,7 @@ export function OnboardingWizard({ onComplete }: Props) {
           type="button"
           onClick={handleNext}
           disabled={!isCurrentStepValid()}
-          className="flex-1 rounded-lg bg-green-600 py-3 text-lg font-semibold text-white disabled:opacity-40"
+          className={`${primaryButtonClass} flex-1`}
         >
           {stepIndex === STEP_TITLES.length - 1 ? '시작하기' : '다음'}
         </button>

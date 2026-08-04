@@ -1,7 +1,112 @@
 @import "tailwindcss";
 
+@theme {
+  /* Vitality & Resilience color tokens */
+  --color-primary: #154212;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #2d5a27;
+  --color-on-primary-container: #9dd090;
+  --color-primary-fixed: #bcf0ae;
+  --color-primary-fixed-dim: #a1d494;
+  --color-on-primary-fixed: #002201;
+  --color-on-primary-fixed-variant: #23501e;
+  --color-inverse-primary: #a1d494;
+
+  --color-secondary: #904d00;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #fd8b00;
+  --color-on-secondary-container: #603100;
+  --color-secondary-fixed: #ffdcc3;
+  --color-secondary-fixed-dim: #ffb77d;
+  --color-on-secondary-fixed: #2f1500;
+  --color-on-secondary-fixed-variant: #6e3900;
+
+  --color-tertiary: #363a37;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #4d514e;
+  --color-on-tertiary-container: #c0c4bf;
+  --color-tertiary-fixed: #e0e3df;
+  --color-tertiary-fixed-dim: #c4c7c3;
+  --color-on-tertiary-fixed: #191c1a;
+  --color-on-tertiary-fixed-variant: #444844;
+
+  --color-background: #fafaf4;
+  --color-on-background: #1a1c19;
+  --color-surface: #fafaf4;
+  --color-surface-dim: #dadad5;
+  --color-surface-bright: #fafaf4;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f4f4ee;
+  --color-surface-container: #eeeee9;
+  --color-surface-container-high: #e8e8e3;
+  --color-surface-container-highest: #e3e3de;
+  --color-surface-variant: #e3e3de;
+  --color-on-surface: #1a1c19;
+  --color-on-surface-variant: #42493e;
+  --color-inverse-surface: #2f312e;
+  --color-inverse-on-surface: #f1f1ec;
+  --color-outline: #72796e;
+  --color-outline-variant: #c2c9bb;
+  --color-surface-tint: #3b6934;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* Typography scale */
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 56px;
+  --text-display-lg--letter-spacing: -0.02em;
+  --text-display-lg--font-weight: 800;
+
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 40px;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 700;
+
+  --text-headline-lg-mobile: 28px;
+  --text-headline-lg-mobile--line-height: 36px;
+  --text-headline-lg-mobile--font-weight: 700;
+
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 32px;
+  --text-headline-md--font-weight: 600;
+
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 28px;
+  --text-body-lg--font-weight: 400;
+
+  --text-body-md: 16px;
+  --text-body-md--line-height: 24px;
+  --text-body-md--font-weight: 400;
+
+  --text-label-lg: 16px;
+  --text-label-lg--line-height: 20px;
+  --text-label-lg--letter-spacing: 0.01em;
+  --text-label-lg--font-weight: 600;
+
+  --text-label-sm: 13px;
+  --text-label-sm--line-height: 16px;
+  --text-label-sm--letter-spacing: 0.03em;
+  --text-label-sm--font-weight: 500;
+
+  /* Spacing */
+  --spacing-unit: 8px;
+  --spacing-section-gap: 40px;
+  --spacing-container-margin: 24px;
+  --spacing-gutter: 16px;
+  --spacing-touch-target-min: 48px;
+
+  /* Shape */
+  --radius: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+}
+
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -26,8 +131,37 @@ html[data-simplified="true"] .hide-when-simplified {
 
 body {
   margin: 0;
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: "Hanken Grotesk", sans-serif;
+  -webkit-tap-highlight-color: transparent;
 }
 
 #root {
   min-height: 100svh;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+  font-size: 24px;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.shadow-soft {
+  box-shadow: 0 4px 12px 0 rgba(21, 66, 18, 0.05);
+}
+
+.shadow-active {
+  box-shadow: 0 6px 16px 0 rgba(144, 77, 0, 0.12);
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 0.85s ease-out;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
 }

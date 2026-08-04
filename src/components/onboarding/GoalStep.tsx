@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { resizeImageFile } from '../../utils/imageResize';
+import { inputClass, labelClass } from '../../styles/formStyles';
 
 interface Props {
   goalName: string;
@@ -10,6 +11,7 @@ interface Props {
 
 export function GoalStep({ goalName, goalTargetPrice, goalPhotoDataUrl, onChange }: Props) {
   const [error, setError] = useState('');
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handlePhotoUpload = async (file: File | undefined) => {
     if (!file) return;
@@ -24,52 +26,55 @@ export function GoalStep({ goalName, goalTargetPrice, goalPhotoDataUrl, onChange
 
   return (
     <div className="flex flex-col gap-5">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
-        목표 물건을 등록해주세요
-      </h2>
-      <p className="text-gray-600 dark:text-gray-400">
-        담배를 참을 때마다 이 물건의 구매 달성률이 채워져요.
-      </p>
+      <h2 className="text-headline-lg-mobile text-primary">목표 물건을 등록해주세요</h2>
+      <p className="text-body-md text-on-surface-variant">담배를 참을 때마다 이 물건의 구매 달성률이 채워져요.</p>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-medium text-gray-800 dark:text-gray-200">목표 물건 이름</span>
+      <div>
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          className="border-outline-variant bg-surface-container-low hover:bg-surface-container-high hover:border-primary flex h-48 w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed transition-all"
+        >
+          {goalPhotoDataUrl ? (
+            <img src={goalPhotoDataUrl} alt="목표 물건 미리보기" className="h-full w-full rounded-xl object-cover" />
+          ) : (
+            <>
+              <span className="material-symbols-outlined text-outline text-4xl">add_a_photo</span>
+              <p className="text-label-lg text-outline">물건 사진 업로드</p>
+            </>
+          )}
+        </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={(e) => handlePhotoUpload(e.target.files?.[0])}
+          className="hidden"
+        />
+        {error && <span className="text-error text-label-sm mt-2 block">{error}</span>}
+      </div>
+
+      <label className="flex flex-col gap-2">
+        <span className={labelClass}>목표 물건 이름</span>
         <input
           type="text"
           value={goalName}
           onChange={(e) => onChange({ goalName: e.target.value })}
-          className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+          className={inputClass}
           placeholder="예: 에어팟"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-medium text-gray-800 dark:text-gray-200">목표 금액 (원)</span>
+      <label className="flex flex-col gap-2">
+        <span className={labelClass}>목표 금액 (원)</span>
         <input
           type="number"
           min={1}
           value={goalTargetPrice}
           onChange={(e) => onChange({ goalTargetPrice: e.target.value })}
-          className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+          className={inputClass}
           placeholder="예: 300000"
         />
-      </label>
-
-      <label className="flex flex-col gap-2">
-        <span className="font-medium text-gray-800 dark:text-gray-200">사진</span>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => handlePhotoUpload(e.target.files?.[0])}
-          className="text-gray-700 dark:text-gray-300"
-        />
-        {error && <span className="text-red-600">{error}</span>}
-        {goalPhotoDataUrl && (
-          <img
-            src={goalPhotoDataUrl}
-            alt="목표 물건 미리보기"
-            className="mt-2 h-40 w-40 rounded-lg object-cover"
-          />
-        )}
       </label>
     </div>
   );

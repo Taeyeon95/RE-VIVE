@@ -1,25 +1,22 @@
 interface Props {
-  daysSinceQuit: number;
   totalCompletedCount: number;
   totalSaved: number;
 }
 
-export function HomeStatsSummary({ daysSinceQuit, totalCompletedCount, totalSaved }: Props) {
+export function HomeStatsSummary({ totalCompletedCount, totalSaved }: Props) {
   return (
-    <div className="grid grid-cols-3 gap-3 text-center">
-      <div className="rounded-xl bg-gray-100 p-3 dark:bg-gray-800">
-        <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{daysSinceQuit}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">금연 일수</div>
+    <div className="grid grid-cols-2 gap-gutter">
+      <div className="bg-primary-container shadow-soft flex flex-col justify-center gap-1 rounded-xl p-4 text-on-primary-container">
+        <span className="material-symbols-outlined" style={{ fontVariationSettings: "'FILL' 1" }}>
+          favorite
+        </span>
+        <span className="text-headline-md font-bold">{totalCompletedCount}회</span>
+        <span className="text-label-sm opacity-80">참은 횟수</span>
       </div>
-      <div className="rounded-xl bg-gray-100 p-3 dark:bg-gray-800">
-        <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{totalCompletedCount}</div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">참은 횟수</div>
-      </div>
-      <div className="rounded-xl bg-gray-100 p-3 dark:bg-gray-800">
-        <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-          {totalSaved.toLocaleString()}
-        </div>
-        <div className="text-sm text-gray-500 dark:text-gray-400">절약(원)</div>
+      <div className="shadow-soft border-primary/5 flex flex-col justify-center gap-1 rounded-xl border bg-white p-4">
+        <span className="material-symbols-outlined text-secondary">payments</span>
+        <span className="text-headline-md text-primary font-bold">{totalSaved.toLocaleString()}원</span>
+        <span className="text-label-sm text-on-surface-variant">절약한 금액</span>
       </div>
     </div>
   );

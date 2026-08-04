@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { OnboardingWizard } from './components/onboarding/OnboardingWizard';
 import { AccessibilityProvider } from './components/layout/AccessibilityProvider';
+import { AppHeader } from './components/layout/AppHeader';
 import { NavBar, type View } from './components/layout/NavBar';
 import { AuthGate } from './components/auth/AuthGate';
 import { LoginForm } from './components/auth/LoginForm';
@@ -26,7 +27,9 @@ const MIGRATION_HANDLED_KEY = 'quit-app:migrationHandled';
 type AuthOverlay = 'login' | 'signup' | null;
 
 function LoadingScreen() {
-  return <div className="flex min-h-svh items-center justify-center text-gray-400">불러오는 중...</div>;
+  return (
+    <div className="flex min-h-svh items-center justify-center bg-surface text-on-surface-variant">불러오는 중...</div>
+  );
 }
 
 function App() {
@@ -128,11 +131,13 @@ function App() {
 
   return (
     <AccessibilityProvider settings={profile.accessibility}>
-      <div className="mx-auto max-w-md">
+      <div className="mx-auto min-h-svh max-w-md bg-surface">
+        <AppHeader />
         {view === 'home' && (
           <HomePage
             profile={profile}
             activeGoals={activeGoals}
+            achievedGoals={achievedGoals}
             events={events}
             logEvent={logEvent}
             achieveGoal={achieveGoal}

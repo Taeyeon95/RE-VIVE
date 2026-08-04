@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GoalStep } from '../onboarding/GoalStep';
+import { cardClass, primaryButtonClass, secondaryButtonClass } from '../../styles/formStyles';
 import type { GoalItem } from '../../types';
 
 interface Props {
@@ -38,7 +39,7 @@ function GoalForm({
   const isValid = form.goalName.trim() !== '' && Number(form.goalTargetPrice) > 0 && form.goalPhotoDataUrl !== '';
 
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-gray-200 p-4 dark:border-gray-700">
+    <div className={`${cardClass} flex flex-col gap-3 p-4`}>
       <GoalStep
         goalName={form.goalName}
         goalTargetPrice={form.goalTargetPrice}
@@ -46,11 +47,7 @@ function GoalForm({
         onChange={(updates) => setForm((prev) => ({ ...prev, ...updates }))}
       />
       <div className="flex gap-3">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="flex-1 rounded-lg border border-gray-300 py-2 text-gray-700 dark:border-gray-600 dark:text-gray-300"
-        >
+        <button type="button" onClick={onCancel} className={secondaryButtonClass}>
           취소
         </button>
         <button
@@ -63,7 +60,7 @@ function GoalForm({
               photoDataUrl: form.goalPhotoDataUrl,
             })
           }
-          className="flex-1 rounded-lg bg-green-600 py-2 font-semibold text-white disabled:opacity-40"
+          className={primaryButtonClass}
         >
           {submitLabel}
         </button>
@@ -79,7 +76,7 @@ export function GoalSettingsForm({ activeGoals, onUpdateGoal, onCreateGoal, onDe
   return (
     <div className="flex flex-col gap-3">
       {activeGoals.length === 0 && !creating && (
-        <p className="text-gray-400">아직 등록한 목표 물건이 없어요</p>
+        <p className="text-label-sm text-on-surface-variant">아직 등록한 목표 물건이 없어요</p>
       )}
 
       {activeGoals.map((goal) =>
@@ -95,22 +92,22 @@ export function GoalSettingsForm({ activeGoals, onUpdateGoal, onCreateGoal, onDe
             }}
           />
         ) : (
-          <div
-            key={goal.id}
-            className="flex items-center gap-3 rounded-xl border border-gray-200 p-3 dark:border-gray-700"
-          >
+          <div key={goal.id} className={`${cardClass} flex items-center gap-3 p-3`}>
             <img src={goal.photoDataUrl} alt={goal.name} className="h-14 w-14 rounded-lg object-cover" />
             <div className="flex-1">
-              <div className="font-medium text-gray-900 dark:text-gray-100">{goal.name}</div>
-              <div className="text-sm text-gray-500 dark:text-gray-400">
-                {goal.targetPrice.toLocaleString()}원
-              </div>
+              <div className="text-label-lg text-on-surface">{goal.name}</div>
+              <div className="text-label-sm text-on-surface-variant">{goal.targetPrice.toLocaleString()}원</div>
             </div>
-            <button type="button" onClick={() => setEditingId(goal.id)} className="text-green-600">
+            <button type="button" onClick={() => setEditingId(goal.id)} className="text-label-sm text-primary">
               수정
             </button>
-            <button type="button" onClick={() => onDeleteGoal(goal.id)} className="text-red-500">
-              삭제
+            <button
+              type="button"
+              onClick={() => onDeleteGoal(goal.id)}
+              className="material-symbols-outlined text-outline-variant hover:text-error transition-colors"
+              aria-label="목표 삭제"
+            >
+              delete
             </button>
           </div>
         ),
@@ -130,7 +127,7 @@ export function GoalSettingsForm({ activeGoals, onUpdateGoal, onCreateGoal, onDe
         <button
           type="button"
           onClick={() => setCreating(true)}
-          className="rounded-lg border-2 border-dashed border-gray-300 py-3 text-gray-600 dark:border-gray-600 dark:text-gray-300"
+          className="border-outline-variant text-on-surface-variant hover:border-primary hover:text-primary rounded-xl border-2 border-dashed py-3 transition-colors"
         >
           + 새 목표 추가
         </button>

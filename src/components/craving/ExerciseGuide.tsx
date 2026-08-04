@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { primaryButtonClass, secondaryButtonClass } from '../../styles/formStyles';
 import type { Exercise } from '../../types';
 
 interface Props {
@@ -19,23 +20,20 @@ export function ExerciseGuide({ exercise, onComplete, onAbandon }: Props) {
   const isDone = secondsLeft === 0;
 
   return (
-    <div className="flex min-h-svh flex-col justify-between p-6">
-      <button type="button" onClick={onAbandon} className="self-end text-2xl text-gray-400">
-        ✕
+    <div className="bg-surface flex min-h-svh flex-col justify-between p-6">
+      <button type="button" onClick={onAbandon} className="material-symbols-outlined text-outline self-end text-3xl">
+        close
       </button>
 
       <div className="flex flex-1 flex-col gap-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{exercise.name}</h2>
-          <div className="mt-2 text-4xl font-bold text-green-600">{secondsLeft}초</div>
+          <h2 className="text-headline-lg text-primary">{exercise.name}</h2>
+          <div className="text-display-lg text-secondary mt-2">{secondsLeft}초</div>
         </div>
 
         <ol className="flex flex-col gap-3">
           {exercise.steps.map((step, i) => (
-            <li
-              key={step}
-              className="rounded-lg bg-gray-100 p-4 text-lg text-gray-800 dark:bg-gray-800 dark:text-gray-200"
-            >
+            <li key={step} className="bg-surface-container-low text-body-lg text-on-surface rounded-xl p-4">
               {i + 1}. {step}
             </li>
           ))}
@@ -44,19 +42,11 @@ export function ExerciseGuide({ exercise, onComplete, onAbandon }: Props) {
 
       <div className="flex flex-col gap-3">
         {isDone ? (
-          <button
-            type="button"
-            onClick={onComplete}
-            className="w-full rounded-2xl bg-green-600 py-4 text-xl font-semibold text-white"
-          >
+          <button type="button" onClick={onComplete} className={primaryButtonClass}>
             운동 완료했어요
           </button>
         ) : (
-          <button
-            type="button"
-            onClick={onAbandon}
-            className="w-full rounded-2xl border border-gray-300 py-4 text-lg text-gray-600 dark:border-gray-600 dark:text-gray-300"
-          >
+          <button type="button" onClick={onAbandon} className={secondaryButtonClass}>
             그만두기
           </button>
         )}

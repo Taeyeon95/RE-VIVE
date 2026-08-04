@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { inputClass, primaryButtonClass } from '../../styles/formStyles';
 
 interface Props {
   authError: string;
@@ -22,42 +23,37 @@ export function SignupForm({ authError, onSubmit, onBack }: Props) {
   };
 
   return (
-    <div className="mx-auto flex min-h-svh max-w-md flex-col justify-center gap-4 p-6">
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">회원가입</h2>
+    <div className="bg-surface mx-auto flex min-h-svh max-w-md flex-col justify-center gap-4 p-6">
+      <h2 className="text-headline-lg-mobile text-primary">회원가입</h2>
 
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="이메일"
-        className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+        className={inputClass}
       />
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="비밀번호 (6자 이상)"
-        className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+        className={inputClass}
       />
       <input
         type="password"
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}
         placeholder="비밀번호 확인"
-        className="rounded-lg border border-gray-300 px-4 py-3 text-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"
+        className={inputClass}
       />
-      {mismatch && <p className="text-red-600">비밀번호가 일치하지 않아요.</p>}
-      {authError && <p className="text-red-600">{authError}</p>}
+      {mismatch && <p className="text-error text-label-sm">비밀번호가 일치하지 않아요.</p>}
+      {authError && <p className="text-error text-label-sm">{authError}</p>}
 
-      <button
-        type="button"
-        onClick={handleSubmit}
-        disabled={submitting || !canSubmit}
-        className="rounded-lg bg-green-600 py-3 text-lg font-semibold text-white disabled:opacity-40"
-      >
+      <button type="button" onClick={handleSubmit} disabled={submitting || !canSubmit} className={primaryButtonClass}>
         {submitting ? '가입 중...' : '회원가입'}
       </button>
-      <button type="button" onClick={onBack} className="text-gray-500 dark:text-gray-400">
+      <button type="button" onClick={onBack} className="text-on-surface-variant">
         뒤로
       </button>
     </div>

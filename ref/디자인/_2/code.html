@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-primary-fixed": "#002201",
+            "primary": "#154212",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#23501e",
+            "surface-container-high": "#e8e8e3",
+            "secondary-fixed": "#ffdcc3",
+            "on-surface-variant": "#42493e",
+            "on-secondary-container": "#603100",
+            "on-error-container": "#93000a",
+            "on-tertiary-fixed": "#191c1a",
+            "surface-container-lowest": "#ffffff",
+            "on-surface": "#1a1c19",
+            "on-primary-container": "#9dd090",
+            "primary-container": "#2d5a27",
+            "on-error": "#ffffff",
+            "on-tertiary-fixed-variant": "#444844",
+            "inverse-primary": "#a1d494",
+            "on-secondary-fixed": "#2f1500",
+            "on-primary": "#ffffff",
+            "primary-fixed": "#bcf0ae",
+            "inverse-surface": "#2f312e",
+            "surface-container-highest": "#e3e3de",
+            "secondary-container": "#fd8b00",
+            "error-container": "#ffdad6",
+            "outline-variant": "#c2c9bb",
+            "primary-fixed-dim": "#a1d494",
+            "on-background": "#1a1c19",
+            "surface": "#fafaf4",
+            "surface-variant": "#e3e3de",
+            "tertiary-container": "#4d514e",
+            "surface-dim": "#dadad5",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f4f4ee",
+            "tertiary-fixed-dim": "#c4c7c3",
+            "surface-bright": "#fafaf4",
+            "secondary-fixed-dim": "#ffb77d",
+            "on-secondary-fixed-variant": "#6e3900",
+            "inverse-on-surface": "#f1f1ec",
+            "on-tertiary-container": "#c0c4bf",
+            "error": "#ba1a1a",
+            "tertiary": "#363a37",
+            "tertiary-fixed": "#e0e3df",
+            "surface-container": "#eeeee9",
+            "secondary": "#904d00",
+            "surface-tint": "#3b6934",
+            "background": "#fafaf4",
+            "outline": "#72796e"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "unit": "8px",
+            "section-gap": "40px",
+            "container-margin": "24px",
+            "gutter": "16px",
+            "touch-target-min": "48px"
+          },
+          "fontFamily": {
+            "display-lg": ["Hanken Grotesk"],
+            "label-lg": ["Hanken Grotesk"],
+            "headline-lg": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"],
+            "label-sm": ["Hanken Grotesk"],
+            "headline-lg-mobile": ["Hanken Grotesk"],
+            "headline-md": ["Hanken Grotesk"],
+            "body-lg": ["Hanken Grotesk"]
+          },
+          "fontSize": {
+            "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+            "label-lg": ["16px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+            "label-sm": ["13px", { "lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500" }],
+            "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body {
+      background-color: #fafaf4;
+      font-family: 'Hanken Grotesk', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.85s ease-out;
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    .shadow-soft {
+      shadow-color: rgba(21, 66, 18, 0.05);
+      box-shadow: 0 4px 12px 0 rgba(21, 66, 18, 0.05);
+    }
+    .shadow-active {
+      box-shadow: 0 6px 16px 0 rgba(144, 77, 0, 0.12);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col pb-32 overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface sticky top-0 z-40 flex justify-between items-center px-container-margin h-touch-target-min w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-primary-fixed flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="A professional, empathetic portrait of a young adult with a clear complexion and a confident, energetic expression. The person is in a well-lit modern office setting with soft sunlight. The visual style is clean and corporate, featuring a palette of deep greens and bright whites to match the Quit &amp; Win brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7aSOOzRsGdlYzwxx3g4fr8zUqnGmm9WUPMlBAglYTCLqLupGUSZ_A9_LhbcyL68BfxL49YZ9rNhCgENPTI2gu35PfzhMBdnYrLqYBUwdpb65Kcmk56-jKWx_ocAxFqrSgsUyRmLs_jB7tOYn6owPdDOk1vM8gevHAhLAzr07XjvI2O6fiBydYz9k2L3mUefCHZ5d4ngnURkcmlOuA4ueWLNJn5X1Wj2_AFLudaUoGQdVsDOGAiAz1rWJEkje5Wn23luMFOPGQMVIm"/>
+</div>
+<h1 class="font-display-lg text-headline-md font-extrabold text-primary">Quit &amp; Win</h1>
+</div>
+<button class="w-touch-target-min h-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors active:scale-95 duration-150 ease-in-out">
+<span class="material-symbols-outlined text-primary" data-icon="settings">settings</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-container-margin pt-unit">
+<!-- Hero Counter Section -->
+<section class="py-section-gap flex flex-col items-center text-center">
+<div class="relative w-48 h-48 mb-6">
+<!-- Progress Circle Background -->
+<svg class="w-full h-full">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="86" stroke="currentColor" stroke-width="10"></circle>
+<circle class="text-secondary stroke-secondary" cx="96" cy="96" fill="transparent" r="86" stroke="currentColor" stroke-dasharray="540.35" stroke-dashoffset="135" stroke-linecap="round" stroke-width="10" style="transform: rotate(-90deg); transform-origin: 50% 50%;"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-display-lg text-display-lg text-primary leading-none">15</span>
+<span class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-widest mt-1">Days</span>
+</div>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-primary mb-2">금연 15일째</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs">놀라운 성과입니다! 이미 폐 기능이 눈에 띄게 회복되고 있습니다.</p>
+</section>
+<!-- Goal Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Savings Goal Card (Bento Large) -->
+<div class="bg-white p-6 rounded-xl shadow-soft border border-primary/5 flex flex-col gap-4 relative overflow-hidden h-full">
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-label-sm text-secondary uppercase font-bold">Current Goal</span>
+<h3 class="font-headline-md text-headline-md text-primary mt-1">에어팟 프로 2세대</h3>
+</div>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm">67%</span>
+</div>
+<div class="aspect-video w-full rounded-lg overflow-hidden bg-surface-container-low flex items-center justify-center">
+<img class="object-cover w-full h-full transition-transform hover:scale-105 duration-700" data-alt="A high-end, studio-lit photograph of sleek white wireless earbuds in their charging case, presented on a minimalist wooden pedestal. The lighting is soft and diffused, creating a tactile and aspirational mood. The overall aesthetic is clean and modern, following the corporate and energetic brand style of Quit &amp; Win." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7VI5nxL7RogVYv_8lZhoJELA7Ksb6JQNWyuGTrzg8na3GBjwU_LVdMtojoGhE4N0CEpszpK9yZp0GBd8Z1YtOq27TCPwkXTwnkIszAgpUXbLAb2P9cmVGJbxRYCiS2ADvBV5hyOWyl3Rhi-zM83qYx7yq0SwNmaV4rRd4EVxsQytcwfiZfUmfnu1pQCOrI1gbZtCToh-YGTOxETqcIYS6JYJb_IPYqbiwPcZhXGESQCZkUF1LX_PYZZ1MO_oYCamK_BVMfQFE0Fqc"/>
+</div>
+<div class="space-y-2 mt-auto">
+<div class="flex justify-between font-label-lg text-label-lg text-primary">
+<span>231,000원 절약</span>
+<span>345,000원</span>
+</div>
+<div class="w-full bg-surface-container-high h-4 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full w-[67%] transition-all duration-1000 ease-out"></div>
+</div>
+</div>
+</div>
+<!-- Quick Stats Stack -->
+<div class="flex flex-col gap-gutter">
+<!-- Life Regained Card -->
+<div class="bg-primary-container p-6 rounded-xl shadow-soft flex items-center gap-4">
+<div class="w-14 h-14 rounded-xl bg-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+<div>
+<p class="font-label-sm text-on-primary-container/80">Life Regained</p>
+<p class="font-headline-md text-headline-md text-on-primary-container font-bold">18h 45m</p>
+</div>
+</div>
+<!-- Health Progress Card -->
+<div class="bg-white p-6 rounded-xl shadow-soft border border-primary/5 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h4 class="font-label-lg text-label-lg text-primary">Health Recovery</h4>
+<span class="material-symbols-outlined text-primary" data-icon="trending_up">trending_up</span>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container px-3 py-2 rounded-lg font-label-sm text-label-sm text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span> 일산화탄소 정상화
+            </span>
+<span class="bg-surface-container px-3 py-2 rounded-lg font-label-sm text-label-sm text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-fixed-dim"></span> 혈압 조절 중
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Motivational Trigger Section -->
+<section class="mt-section-gap mb-10">
+<div class="bg-surface-container-high/50 p-6 rounded-xl border-2 border-dashed border-outline-variant flex flex-col items-center text-center gap-4">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="auto_awesome">auto_awesome</span>
+<h4 class="font-headline-md text-headline-md text-primary">"담배 한 개비를 참을 때마다<br/>당신의 건강은 11분씩 늘어납니다."</h4>
+<p class="font-body-md text-on-surface-variant">오늘 벌써 8개의 건강한 11분을 얻으셨네요!</p>
+</div>
+</section>
+</main>
+<!-- Large FAB: 충동이 느껴져요! -->
+<div class="fixed bottom-24 left-1/2 -translate-x-1/2 w-full max-w-xs px-4 z-50">
+<button class="w-full h-14 bg-secondary text-white rounded-full shadow-lg shadow-active flex items-center justify-center gap-3 active:scale-95 transition-all duration-200 hover:brightness-110" id="log-craving-btn">
+<span class="material-symbols-outlined" data-icon="warning" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="font-label-lg text-lg font-bold">충동이 느껴져요!</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container rounded-t-xl shadow-md">
+<!-- 홈 (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-4 py-1 translate-y-[-2px] transition-transform duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-sm text-label-sm">홈</span>
+</a>
+<!-- 운동 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="fitness_center">fitness_center</span>
+<span class="font-label-sm text-label-sm">운동</span>
+</a>
+<!-- 목표 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="military_tech">military_tech</span>
+<span class="font-label-sm text-label-sm">목표</span>
+</a>
+<!-- 기록 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-label-sm text-label-sm">기록</span>
+</a>
+<!-- 설정 -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-sm text-label-sm">설정</span>
+</a>
+</nav>
+<!-- Interaction Script -->
+<script>
+    const cravingBtn = document.getElementById('log-craving-btn');
+    cravingBtn.addEventListener('click', () => {
+      // Gentle haptic-like visual feedback
+      cravingBtn.classList.add('bg-error');
+      cravingBtn.innerHTML = `
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;" data-icon="bolt">bolt</span>
+        <span class="font-label-lg text-lg font-bold">심호흡을 하세요 (3, 2, 1...)</span>
+      `;
+      
+      setTimeout(() => {
+        cravingBtn.classList.remove('bg-error');
+        cravingBtn.innerHTML = `
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;" data-icon="warning">warning</span>
+          <span class="font-label-lg text-lg font-bold">충동이 느껴져요!</span>
+        `;
+      }, 5000);
+    });
+
+    // Animate progress bar on load
+    window.addEventListener('load', () => {
+      const bars = document.querySelectorAll('.bg-secondary.h-full');
+      bars.forEach(bar => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.width = width;
+        }, 100);
+      });
+    });
+  </script>
+</body></html>
