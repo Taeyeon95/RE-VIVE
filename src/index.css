@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  font-size: 16px;
+}
+
+html[data-font-size="large"] {
+  font-size: 19px;
+}
+
+html[data-font-size="xlarge"] {
+  font-size: 23px;
+}
+
+html[data-simplified="true"] .hide-when-simplified {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+}
+
+#root {
+  min-height: 100svh;
+}
