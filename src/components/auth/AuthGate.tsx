@@ -23,8 +23,7 @@ export function AuthGate({ authError, onGuestContinue, onLogIn, onSignUp }: Prop
 
   return (
     <div className="bg-surface mx-auto flex min-h-svh max-w-md flex-col items-center justify-center gap-6 p-6 text-center">
-      <img src="/auth-logo.jpeg" alt="RE:VIVE 로고" className="h-32 w-32 rounded-3xl object-cover" />
-      <h1 className="text-headline-lg text-primary">RE:VIVE</h1>
+      <img src="/auth-logo.png" alt="RE:VIVE 로고" className="h-72 w-72 object-contain" />
       <p className="text-body-md text-on-surface-variant">
         로그인하면 여러 기기에서 같은 기록을 볼 수 있어요. 로그인 없이 이 기기에만 저장할 수도 있어요.
       </p>
