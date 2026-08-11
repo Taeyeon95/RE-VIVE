@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
   );
   const user = result.rows[0];
   setSessionCookie(res, { uid: user.id, email: user.email });
-  res.json({ uid: user.id, email: user.email });
+  res.json({ uid: user.id, email: user.email, isAdmin: false });
 });
 
 router.post('/login', async (req, res) => {
@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
     return res.status(401).json({ code: 'INVALID_CREDENTIALS' });
   }
 
-  const result = await pool.query('SELECT id, email, password_hash FROM users WHERE email = $1', [email]);
+  const result = await pool.query('SELECT id, email, password_hash, is_admin FROM users WHERE email = $1', [email]);
   const user = result.rows[0];
   if (!user) return res.status(401).json({ code: 'INVALID_CREDENTIALS' });
 
@@ -44,7 +44,7 @@ router.post('/login', async (req, res) => {
   if (!match) return res.status(401).json({ code: 'INVALID_CREDENTIALS' });
 
   setSessionCookie(res, { uid: user.id, email: user.email });
-  res.json({ uid: user.id, email: user.email });
+  res.json({ uid: user.id, email: user.email, isAdmin: user.is_admin });
 });
 
 router.post('/logout', (req, res) => {
@@ -52,9 +52,15 @@ router.post('/logout', (req, res) => {
   res.status(204).end();
 });
 
-router.get('/me', (req, res) => {
+router.get('/me', async (req, res) => {
   const session = readSession(req);
-  res.json({ user: session ? { uid: session.uid, email: session.email } : null });
+  if (!session) return res.json({ user: null });
+
+  // Queried fresh (not read off the JWT) so a promotion/revocation shows up
+  // on next load without forcing the user to log out and back in.
+  const result = await pool.query('SELECT is_admin FROM users WHERE id = $1', [session.uid]);
+  const isAdmin = result.rows[0]?.is_admin ?? false;
+  res.json({ user: { uid: session.uid, email: session.email, isAdmin } });
 });
 
 export default router;

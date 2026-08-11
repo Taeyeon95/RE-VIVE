@@ -10,6 +10,7 @@ import { MigratePrompt } from './components/auth/MigratePrompt';
 import { HomePage } from './pages/HomePage';
 import { StatsPage } from './pages/StatsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { AdminPage } from './pages/AdminPage';
 import { useAuth } from './hooks/useAuth';
 import { useProfile } from './hooks/useProfile';
 import { useGoal } from './hooks/useGoal';
@@ -152,6 +153,7 @@ function App() {
             onDeleteEvent={removeEvent}
           />
         )}
+        {view === 'admin' && user?.isAdmin && <AdminPage />}
         {view === 'settings' && (
           <SettingsPage
             profile={profile}
@@ -171,7 +173,7 @@ function App() {
             onResetAll={handleResetAll}
           />
         )}
-        <NavBar current={view} onNavigate={setView} />
+        <NavBar current={view} onNavigate={setView} showAdmin={user?.isAdmin} />
       </div>
     </AccessibilityProvider>
   );

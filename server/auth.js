@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { pool } from './db.js';
 
 const COOKIE_NAME = 'session';
 
@@ -38,5 +39,13 @@ export function requireAuth(req, res, next) {
   if (!session) return res.status(401).json({ code: 'UNAUTHENTICATED' });
   req.userId = session.uid;
   req.userEmail = session.email;
+  next();
+}
+
+// Re-checks the DB rather than trusting the JWT, so revoking admin rights
+// takes effect immediately without waiting for the session to expire.
+export async function requireAdmin(req, res, next) {
+  const result = await pool.query('SELECT is_admin FROM users WHERE id = $1', [req.userId]);
+  if (!result.rows[0]?.is_admin) return res.status(403).json({ code: 'FORBIDDEN' });
   next();
 }

@@ -4,6 +4,7 @@ import { apiFetch, ApiError } from '../lib/api';
 export interface AuthUser {
   uid: string;
   email: string;
+  isAdmin: boolean;
 }
 
 function translateAuthError(error: unknown): string {

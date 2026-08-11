@@ -6,6 +6,7 @@ import authRoutes from './routes/auth.js';
 import profileRoutes from './routes/profile.js';
 import goalRoutes from './routes/goals.js';
 import cravingRoutes from './routes/cravings.js';
+import adminRoutes from './routes/admin.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/goals', goalRoutes);
 app.use('/api/cravings', cravingRoutes);
+app.use('/api/admin', adminRoutes);
 
 // Production: serve the built frontend from the same server/port.
 const distPath = path.join(__dirname, '..', 'dist');
