@@ -27,11 +27,11 @@ export function createLocalCravingBackend(): CravingBackend {
   };
 }
 
-export function createCloudCravingBackend(uid: string): CravingBackend {
+export function createCloudCravingBackend(): CravingBackend {
   return {
-    getCravingEvents: () => cloud.getCravingEvents(uid),
-    addCravingEvent: (event) => cloud.addCravingEvent(uid, event),
-    deleteCravingEvent: (id) => cloud.deleteCravingEvent(uid, id),
-    clearCravingEvents: () => cloud.clearCravingEvents(uid),
+    getCravingEvents: () => cloud.getCravingEvents(),
+    addCravingEvent: (event) => cloud.addCravingEvent(event),
+    deleteCravingEvent: (id) => cloud.deleteCravingEvent(id),
+    clearCravingEvents: () => cloud.clearCravingEvents(),
   };
 }

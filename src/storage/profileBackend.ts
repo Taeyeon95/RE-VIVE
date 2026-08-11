@@ -22,10 +22,10 @@ export function createLocalProfileBackend(): ProfileBackend {
   };
 }
 
-export function createCloudProfileBackend(uid: string): ProfileBackend {
+export function createCloudProfileBackend(): ProfileBackend {
   return {
-    getProfile: () => cloud.getProfile(uid),
-    saveProfile: (profile) => cloud.saveProfile(uid, profile),
-    clearProfile: () => cloud.clearProfile(uid),
+    getProfile: () => cloud.getProfile(),
+    saveProfile: (profile) => cloud.saveProfile(profile),
+    clearProfile: () => cloud.clearProfile(),
   };
 }

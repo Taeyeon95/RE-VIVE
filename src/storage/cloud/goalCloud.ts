@@ -1,47 +1,34 @@
-import { collection, deleteDoc, doc, getDocs, setDoc } from 'firebase/firestore';
-import { requireDb } from '../../lib/firebase';
+import { apiFetch } from '../../lib/api';
 import type { GoalItem } from '../../types';
 
-function goalsCollectionRef(uid: string) {
-  return collection(requireDb(), 'users', uid, 'goals');
+export async function getGoals(): Promise<GoalItem[]> {
+  const res = await apiFetch('/api/goals');
+  const data = await res.json();
+  return data.goals;
 }
 
-export async function getGoals(uid: string): Promise<GoalItem[]> {
-  const snap = await getDocs(goalsCollectionRef(uid));
-  return snap.docs.map((d) => d.data() as GoalItem);
+export async function addGoal(goal: Omit<GoalItem, 'id' | 'status' | 'createdAt'>): Promise<GoalItem> {
+  const res = await apiFetch('/api/goals', { method: 'POST', body: JSON.stringify(goal) });
+  const data = await res.json();
+  return data.goal;
 }
 
-export async function addGoal(
-  uid: string,
-  goal: Omit<GoalItem, 'id' | 'status' | 'createdAt'>,
-): Promise<GoalItem> {
-  const newGoal: GoalItem = {
-    ...goal,
-    id: crypto.randomUUID(),
-    status: 'active',
-    createdAt: new Date().toISOString(),
-  };
-  await setDoc(doc(goalsCollectionRef(uid), newGoal.id), newGoal);
-  return newGoal;
+export async function setGoal(goal: GoalItem): Promise<void> {
+  await apiFetch(`/api/goals/${goal.id}`, { method: 'PUT', body: JSON.stringify(goal) });
 }
 
-export async function setGoal(uid: string, goal: GoalItem): Promise<void> {
-  await setDoc(doc(goalsCollectionRef(uid), goal.id), goal);
+export async function updateGoal(id: string, updates: Partial<GoalItem>): Promise<void> {
+  await apiFetch(`/api/goals/${id}`, { method: 'PATCH', body: JSON.stringify(updates) });
 }
 
-export async function updateGoal(uid: string, id: string, updates: Partial<GoalItem>): Promise<void> {
-  await setDoc(doc(goalsCollectionRef(uid), id), updates, { merge: true });
+export async function markGoalAchieved(id: string): Promise<void> {
+  await apiFetch(`/api/goals/${id}/achieve`, { method: 'POST' });
 }
 
-export async function markGoalAchieved(uid: string, id: string): Promise<void> {
-  await updateGoal(uid, id, { status: 'achieved', achievedAt: new Date().toISOString() });
+export async function deleteGoal(id: string): Promise<void> {
+  await apiFetch(`/api/goals/${id}`, { method: 'DELETE' });
 }
 
-export async function deleteGoal(uid: string, id: string): Promise<void> {
-  await deleteDoc(doc(goalsCollectionRef(uid), id));
-}
-
-export async function clearGoals(uid: string): Promise<void> {
-  const snap = await getDocs(goalsCollectionRef(uid));
-  await Promise.all(snap.docs.map((d) => deleteDoc(d.ref)));
+export async function clearGoals(): Promise<void> {
+  await apiFetch('/api/goals', { method: 'DELETE' });
 }

@@ -39,14 +39,14 @@ export function createLocalGoalBackend(): GoalBackend {
   };
 }
 
-export function createCloudGoalBackend(uid: string): GoalBackend {
+export function createCloudGoalBackend(): GoalBackend {
   return {
-    getGoals: () => cloud.getGoals(uid),
-    addGoal: (goal) => cloud.addGoal(uid, goal),
-    setGoal: (goal) => cloud.setGoal(uid, goal),
-    updateGoal: (id, updates) => cloud.updateGoal(uid, id, updates),
-    markGoalAchieved: (id) => cloud.markGoalAchieved(uid, id),
-    deleteGoal: (id) => cloud.deleteGoal(uid, id),
-    clearGoals: () => cloud.clearGoals(uid),
+    getGoals: () => cloud.getGoals(),
+    addGoal: (goal) => cloud.addGoal(goal),
+    setGoal: (goal) => cloud.setGoal(goal),
+    updateGoal: (id, updates) => cloud.updateGoal(id, updates),
+    markGoalAchieved: (id) => cloud.markGoalAchieved(id),
+    deleteGoal: (id) => cloud.deleteGoal(id),
+    clearGoals: () => cloud.clearGoals(),
   };
 }

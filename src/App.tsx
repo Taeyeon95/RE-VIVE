@@ -42,12 +42,12 @@ function App() {
   const [view, setView] = useState<View>('home');
 
   const profileBackend = useMemo(
-    () => (user ? createCloudProfileBackend(user.uid) : createLocalProfileBackend()),
+    () => (user ? createCloudProfileBackend() : createLocalProfileBackend()),
     [user],
   );
-  const goalBackend = useMemo(() => (user ? createCloudGoalBackend(user.uid) : createLocalGoalBackend()), [user]);
+  const goalBackend = useMemo(() => (user ? createCloudGoalBackend() : createLocalGoalBackend()), [user]);
   const cravingBackend = useMemo(
-    () => (user ? createCloudCravingBackend(user.uid) : createLocalCravingBackend()),
+    () => (user ? createCloudCravingBackend() : createLocalCravingBackend()),
     [user],
   );
 
