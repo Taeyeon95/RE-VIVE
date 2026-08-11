@@ -13,10 +13,13 @@ dist-ssr
 dev-dist
 *.local
 
-# Environment variables (Firebase config, secrets)
+# Environment variables (Neon DB / JWT secrets)
 .env
 .env.*
 !.env.example
+
+# Vercel CLI local project link
+.vercel
 
 # Editor directories and files
 .vscode/*
