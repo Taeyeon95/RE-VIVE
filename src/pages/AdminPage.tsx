@@ -6,7 +6,7 @@ import {
   type AdminUserSummary,
   type AdminUserDetail,
 } from '../lib/adminApi';
-import { cardClass } from '../styles/formStyles';
+import { cardClass, inputClass } from '../styles/formStyles';
 
 function formatDate(iso: string | null): string {
   if (!iso) return '-';
@@ -111,6 +111,7 @@ function AdminUserDetailView({ uid, onBack, onDeleted }: DetailViewProps) {
 export function AdminPage() {
   const [users, setUsers] = useState<AdminUserSummary[] | null>(null);
   const [selectedUid, setSelectedUid] = useState<string | null>(null);
+  const [search, setSearch] = useState('');
 
   const loadUsers = () => {
     setUsers(null);
@@ -118,6 +119,8 @@ export function AdminPage() {
   };
 
   useEffect(loadUsers, []);
+
+  const filteredUsers = users?.filter((u) => u.email.toLowerCase().includes(search.trim().toLowerCase()));
 
   return (
     <div className="px-container-margin flex flex-col gap-gutter pt-unit pb-28">
@@ -134,9 +137,22 @@ export function AdminPage() {
         />
       ) : (
         <>
+          <input
+            type="search"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="이메일로 검색"
+            className={inputClass}
+          />
+
           {users === null && <p className="text-body-md text-on-surface-variant">불러오는 중...</p>}
-          {users?.length === 0 && <p className="text-body-md text-on-surface-variant">가입한 사용자가 없어요</p>}
-          {users?.map((u) => (
+          {users !== null && users.length === 0 && (
+            <p className="text-body-md text-on-surface-variant">가입한 사용자가 없어요</p>
+          )}
+          {users !== null && users.length > 0 && filteredUsers?.length === 0 && (
+            <p className="text-body-md text-on-surface-variant">검색 결과가 없어요</p>
+          )}
+          {filteredUsers?.map((u) => (
             <button
               key={u.uid}
               type="button"
