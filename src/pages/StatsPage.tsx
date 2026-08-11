@@ -2,7 +2,8 @@ import { StatsSummary } from '../components/stats/StatsSummary';
 import { SavingsChart } from '../components/stats/SavingsChart';
 import { GoalGallery } from '../components/stats/GoalGallery';
 import { CravingHistoryList } from '../components/stats/CravingHistoryList';
-import { daysSinceQuit, dailySavingsSeries, totalCompletedCount, totalSaved } from '../utils/statsCalc';
+import { daysSinceQuit, totalCompletedCount } from '../utils/statsCalc';
+import { moneySavedSinceQuit, dailySavingsSeriesSinceQuit } from '../utils/moneyCalc';
 import type { CravingEvent, GoalItem, UserProfile } from '../types';
 
 interface Props {
@@ -14,7 +15,8 @@ interface Props {
 
 export function StatsPage({ profile, events, achievedGoals, onDeleteEvent }: Props) {
   const completedCount = totalCompletedCount(events);
-  const saved = totalSaved(events);
+  // 충동 대응 횟수가 아니라 금연 시작일로부터 지난 일수 × 평소 흡연량으로 계산한다.
+  const saved = moneySavedSinceQuit(profile);
 
   return (
     <div className="px-container-margin flex flex-col gap-gutter pt-unit pb-28">
@@ -37,7 +39,7 @@ export function StatsPage({ profile, events, achievedGoals, onDeleteEvent }: Pro
 
       <section className="flex flex-col gap-2">
         <h2 className="text-label-lg text-primary">일별 절약 금액</h2>
-        <SavingsChart data={dailySavingsSeries(events)} />
+        <SavingsChart data={dailySavingsSeriesSinceQuit(profile)} />
       </section>
 
       <section className="flex flex-col gap-2">

@@ -9,6 +9,7 @@ import { useCravingFlow } from '../hooks/useCravingFlow';
 import { getExerciseById } from '../data/exercises';
 import { progressPercent } from '../utils/goalProgress';
 import { daysSinceQuit, totalCompletedCount, totalSaved } from '../utils/statsCalc';
+import { moneySavedSinceQuit } from '../utils/moneyCalc';
 import type { CravingEvent, GoalItem, UserProfile } from '../types';
 
 interface Props {
@@ -35,7 +36,8 @@ export function HomePage({
   const eventsSinceRestart = events.filter((e) => new Date(e.timestamp).getTime() >= quitStart);
 
   const savedBeforeRestart = totalSaved(eventsBeforeRestart);
-  const savedSinceRestart = totalSaved(eventsSinceRestart);
+  // 충동 대응 횟수가 아니라 금연 시작일로부터 지난 일수 × 평소 흡연량으로 계산한다.
+  const savedSinceRestart = moneySavedSinceQuit(profile);
 
   // 이번 시도 중 구매로 소진된 금액만큼 남은 goal들이 나눠 쓰는 금액에서 제외
   const purchasedThisAttempt = achievedGoals
@@ -43,7 +45,7 @@ export function HomePage({
     .reduce((sum, g) => sum + g.targetPrice, 0);
   const availablePool = Math.max(0, savedSinceRestart - purchasedThisAttempt);
 
-  const flow = useCravingFlow({ profile, activeGoals, availablePool, logEvent });
+  const flow = useCravingFlow({ profile, logEvent });
   const exercise = getExerciseById(profile.selectedExerciseId);
 
   const goalProgressList = activeGoals.map((goal) => ({
@@ -67,16 +69,7 @@ export function HomePage({
         {flow.step === 'exercise' && exercise && (
           <ExerciseGuide exercise={exercise} onComplete={flow.completeExercise} onAbandon={flow.abandonExercise} />
         )}
-        {flow.step === 'result' && flow.result && (
-          <CravingResultScreen
-            result={flow.result}
-            onClose={flow.reset}
-            onGoToGoalSettings={() => {
-              flow.reset();
-              onGoToSettings();
-            }}
-          />
-        )}
+        {flow.step === 'result' && flow.result && <CravingResultScreen result={flow.result} onClose={flow.reset} />}
       </div>
     );
   }

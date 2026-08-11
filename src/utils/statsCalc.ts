@@ -13,7 +13,7 @@ export function daysSinceQuit(quitDateTime: string): number {
   return Math.max(0, Math.floor(elapsedMs / (1000 * 60 * 60 * 24)));
 }
 
-function toLocalDateKey(isoString: string): string {
+export function toLocalDateKey(isoString: string): string {
   const d = new Date(isoString);
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 }
@@ -21,18 +21,6 @@ function toLocalDateKey(isoString: string): string {
 export interface DailySavingsPoint {
   date: string;
   amount: number;
-}
-
-export function dailySavingsSeries(events: CravingEvent[]): DailySavingsPoint[] {
-  const byDate = new Map<string, number>();
-  for (const e of events) {
-    if (!e.completed) continue;
-    const key = toLocalDateKey(e.timestamp);
-    byDate.set(key, (byDate.get(key) ?? 0) + e.moneySaved);
-  }
-  return Array.from(byDate.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([date, amount]) => ({ date, amount }));
 }
 
 export function todayCount(events: CravingEvent[]): number {
